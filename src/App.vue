@@ -1,28 +1,41 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <button v-on:click.prevent="viewing = !viewing">Toggle viewing</button>
+    <button v-on:click.prevent="currentImage == image ? currentImage = image2 : currentImage = image">Change Image</button>
+    <Viewer v-if="viewing" v-bind:image="currentImage"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import Viewer from "./components/Viewer.vue";
 
 export default {
   name: "app",
   components: {
-    HelloWorld
+    Viewer
+  },
+  data() {
+    return {
+      viewing: true,
+      currentImage: null,
+      image: require("@/assets/pic.png"),
+      image2: require("@/assets/pic2.jpg")
+    };
   }
 };
 </script>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
 }
 </style>
