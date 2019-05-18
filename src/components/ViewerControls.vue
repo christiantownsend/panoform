@@ -7,7 +7,7 @@
       <button v-on:click.prevent="loadImage">Load Image</button>
       
       <button v-if="webVR" v-on:click.prevent="toggleWebVR">Toggle WebVR</button>
-      <button v-if="deviceOrientationVR" v-on:click.prevent="toggleStereo">Toggle Stereo</button>
+      <button v-if="deviceOrientationVR" v-on:click.prevent="toggleVR">Toggle Stereo</button>
     </div>
   </div>
 </template>
@@ -26,6 +26,7 @@ export default {
     init() {
       if ("getVRDisplays" in navigator) {
         navigator.getVRDisplays().then(displays => {
+          this.$store.commit('setWebVRDevice', displays[0]);
           this.webVR = true;
         });
       } else {
@@ -67,6 +68,11 @@ export default {
       this.$store.commit("setControls", newVal ? 1 : 0);
       this.$store.commit("setStereo", newVal);
       this.$store.commit("setFullscreen", newVal);
+    },
+    toggleWebVR() {
+      let newVal = !this.$store.state.viewer.webVR;
+
+      this.$store.commit('setWebVR', newVal);
     }
   },
   mounted() {

@@ -11,7 +11,9 @@ let store = new Vuex.Store({
     viewer: {
       fullscreen: false,
       stereo: false,
+      webVR: false,
       controls: 0,
+      webVRDevice: null,
       currentImage: null
     },
     recentImages: [
@@ -43,6 +45,12 @@ let store = new Vuex.Store({
     },
     setControls(state, value) {
       state.viewer.controls = value;
+    },
+    setWebVRDevice(state, value) {
+      state.viewer.webVRDevice = value;
+    },
+    setWebVR(state, value) {
+      state.viewer.webVR = value;
     }
   },
   actions: {

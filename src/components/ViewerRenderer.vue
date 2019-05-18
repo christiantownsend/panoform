@@ -38,7 +38,8 @@ export default {
       controls: null,
       scene: null,
       normalRenderer: null,
-      stereoRenderer: null
+      stereoRenderer: null,
+      device: null
     };
   },
   computed: {
@@ -53,6 +54,12 @@ export default {
     },
     storeControls() {
       return this.$store.state.viewer.controls;
+    },
+    webVRDevice() {
+      return this.$store.state.viewer.webVRDevice;
+    },
+    isWebVR() {
+      return this.$store.state.viewer.webVR;
     }
   },
   watch: {
@@ -71,6 +78,19 @@ export default {
     },
     storeControls(newVal) {
       this.setControls(newVal);
+    },
+    webVRDevice(device) {
+      this.device = device;
+      this.normalRenderer.vr.setDevice(this.device);
+    },
+    isWebVR(newVal) {
+      if (newVal) {
+        this.device.requestPresent([{ source: document.getElementById("panoform-viewer") }]);
+        this.normalRenderer.vr.enabled = true;
+      } else {
+        this.device.exitPresent();
+        this.normalRenderer.vr.enabled = false;
+      }
     }
   },
   methods: {
