@@ -8,11 +8,11 @@ self.__precacheManifest = [
     "url": "/panoform-vue/js/chunk-vendors.af3c2bdf.js"
   },
   {
-    "revision": "5abccd6a3ed44b8d62f7",
-    "url": "/panoform-vue/js/app.c4bca22c.js"
+    "revision": "8afb5a991cda9ca4ca4b",
+    "url": "/panoform-vue/js/app.05cb9c6e.js"
   },
   {
-    "revision": "ef77f7f6af6fdadfa7833ed2ad42104a",
+    "revision": "520322c2e53e71995bd11d5383ffe227",
     "url": "/panoform-vue/index.html"
   },
   {
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/panoform-vue/favicon.png"
   },
   {
-    "revision": "5abccd6a3ed44b8d62f7",
-    "url": "/panoform-vue/css/app.25fe8ebc.css"
+    "revision": "8afb5a991cda9ca4ca4b",
+    "url": "/panoform-vue/css/app.a6250658.css"
   }
 ];
