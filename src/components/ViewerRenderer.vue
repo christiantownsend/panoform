@@ -196,7 +196,7 @@ export default {
 
       switch (value) {
         case 1:
-          console.log('setting deviceorientation controls')
+          console.log("setting deviceorientation controls");
           this.controls = new DeviceOrientationControls(
             this.camera,
             this.container
@@ -206,7 +206,7 @@ export default {
           this.controls.update();
           break;
         default:
-          console.log('setting orbit controls')
+          console.log("setting orbit controls");
           this.controls = new OrbitControls(
             this.camera,
             this.normalRenderer.domElement
