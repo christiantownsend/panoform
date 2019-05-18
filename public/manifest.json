@@ -1,6 +1,6 @@
 {
-  "name": "panoform-vue",
-  "short_name": "panoform-vue",
+  "name": "Panoform",
+  "short_name": "Panoform",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
