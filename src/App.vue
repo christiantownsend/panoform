@@ -1,8 +1,18 @@
 <template>
   <div id="app">
-    <button v-on:click.prevent="viewing = !viewing">Toggle viewing</button>
-    <button v-on:click.prevent="currentImage == image ? currentImage = image2 : currentImage = image">Change Image</button>
-    <Viewer v-if="viewing" v-bind:image="currentImage"/>
+
+    <Viewer v-if="this.$store.state.viewing"/>
+
+    <section>
+      <button v-on:click.prevent="clearDB">Clear DB</button>
+      <button v-on:click.prevent="$store.commit('setViewing', true)">Load Image</button>
+    </section>
+
+    <main>
+      <figure v-for="image in recentImages" v-bind:key="image.key">
+        <img :src="image.data" v-on:click="setImage(image.data)"/>
+      </figure>
+    </main>
   </div>
 </template>
 
@@ -14,13 +24,20 @@ export default {
   components: {
     Viewer
   },
-  data() {
-    return {
-      viewing: true,
-      currentImage: null,
-      image: require("@/assets/pic.png"),
-      image2: require("@/assets/pic2.jpg")
-    };
+  computed: {
+    recentImages() {
+      return this.$store.state.recentImages;
+    }
+  },
+  methods: {
+    clearDB() {
+      this.$store.dispatch("clearRecentImages");
+    },
+    setImage(image) {
+      this.$store.commit("setCurrentImage", image);
+      this.$store.dispatch('addRecentImage', image);
+      this.$store.commit('setViewing', true);
+    },
   }
 };
 </script>
@@ -37,5 +54,61 @@ html {
 body {
   margin: 0;
   padding: 0;
+}
+
+section, main {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2em 0;
+}
+
+main {
+    display: grid;
+    grid-gap: 2em;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+main figure {
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+    display: block;
+    width: 100%;
+    border-radius: .5em;
+    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+main figure::after {
+    content: "";
+    border-radius: inherit;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+main figure:hover {
+    transform: scale(1.025, 1.025);
+}
+
+main figure:hover::after {
+    opacity: 1;
+}
+
+main figure img {
+    border-radius: inherit;
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 </style>
