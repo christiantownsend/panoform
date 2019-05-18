@@ -1,7 +1,7 @@
 <template>
   <div id="panoform-viewer" class="panoform-container">
-    <ViewerControls/>
-    <ViewerRenderer/>
+    <ViewerControls />
+    <ViewerRenderer />
   </div>
 </template>
 

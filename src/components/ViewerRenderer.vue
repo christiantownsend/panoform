@@ -85,7 +85,12 @@ export default {
     },
     isWebVR(newVal) {
       if (newVal) {
-        this.device.requestPresent([{ source: document.getElementById("panoform-viewer") }]);
+        this.device.requestPresent([
+          {
+            source: /*document.getElementById("panoform-viewer")*/ this
+              .container
+          }
+        ]);
         this.normalRenderer.vr.enabled = true;
       } else {
         this.device.exitPresent();
@@ -146,7 +151,7 @@ export default {
       });
     },
     render(mode) {
-      this.mode == PANOFORM.modes.STEREO
+      mode == PANOFORM.modes.STEREO
         ? this.stereoRenderer.render(this.scene, this.camera)
         : this.normalRenderer.render(this.scene, this.camera);
     },

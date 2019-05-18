@@ -1,27 +1,29 @@
 <template>
   <div id="app">
-    <Viewer v-if="this.$store.state.viewing"/>
+    <Viewer v-if="this.$store.state.viewing" />
 
     <section>
+      <ImagePicker />
       <button v-on:click.prevent="clearDB">Clear DB</button>
-      <button v-on:click.prevent="$store.commit('setViewing', true)">Load Image</button>
     </section>
 
     <main>
       <figure v-for="image in recentImages" v-bind:key="image.key">
-        <img :src="image.data" v-on:click="setImage(image.data)">
+        <img :src="image.data" v-on:click="setImage(image.data)" />
       </figure>
     </main>
   </div>
 </template>
 
 <script>
-import Viewer from "./components/Viewer.vue";
+import Viewer from "./components/Viewer";
+import ImagePicker from "./components/ImagePicker";
 
 export default {
   name: "app",
   components: {
-    Viewer
+    Viewer,
+    ImagePicker
   },
   computed: {
     recentImages() {
