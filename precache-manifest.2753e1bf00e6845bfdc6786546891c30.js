@@ -12,7 +12,7 @@ self.__precacheManifest = [
     "url": "/panoform-vue/js/app.80f051df.js"
   },
   {
-    "revision": "533bb09de3d528d9d4827c71e7d277bb",
+    "revision": "df4025093ce3d00011c2565b073ef63b",
     "url": "/panoform-vue/index.html"
   },
   {
