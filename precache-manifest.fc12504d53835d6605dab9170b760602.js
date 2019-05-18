@@ -12,12 +12,16 @@ self.__precacheManifest = [
     "url": "/panoform-vue/js/app.29102835.js"
   },
   {
-    "revision": "54184b0d6c223ae88da7c54e3cee0af7",
+    "revision": "ac5c9b487ba935eb260a723c4ddfe0a1",
     "url": "/panoform-vue/index.html"
   },
   {
     "revision": "69cfce8f20fe9076d8a89bf228ad5b21",
     "url": "/panoform-vue/img/pic.69cfce8f.png"
+  },
+  {
+    "revision": "c2b4b1f23cfc3f1b3fdb8c77aace28dc",
+    "url": "/panoform-vue/favicon.png"
   },
   {
     "revision": "b01b9117397d5a50c2d6",
