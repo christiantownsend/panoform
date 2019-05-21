@@ -8,23 +8,31 @@ self.__precacheManifest = [
     "url": "/panoform-vue/js/chunk-vendors.af3c2bdf.js"
   },
   {
-    "revision": "46f41080a601bf660ff5",
-    "url": "/panoform-vue/js/app.80f051df.js"
+    "revision": "dea4cd1a9279971fe1db",
+    "url": "/panoform-vue/js/app.470fd076.js"
   },
   {
-    "revision": "df4025093ce3d00011c2565b073ef63b",
+    "revision": "a8255590d4e6145f4d8bb5dc28b3e193",
     "url": "/panoform-vue/index.html"
+  },
+  {
+    "revision": "f1c6393431acca5f24bd3b49c2466e65",
+    "url": "/panoform-vue/img/vr-icon.f1c63934.svg"
   },
   {
     "revision": "69cfce8f20fe9076d8a89bf228ad5b21",
     "url": "/panoform-vue/img/pic.69cfce8f.png"
   },
   {
+    "revision": "e8dc3e0014432a78d5590be412fe37d9",
+    "url": "/panoform-vue/img/close-icon.e8dc3e00.svg"
+  },
+  {
     "revision": "c2b4b1f23cfc3f1b3fdb8c77aace28dc",
     "url": "/panoform-vue/favicon.png"
   },
   {
-    "revision": "46f41080a601bf660ff5",
-    "url": "/panoform-vue/css/app.d15f0dab.css"
+    "revision": "dea4cd1a9279971fe1db",
+    "url": "/panoform-vue/css/app.0f8d630d.css"
   }
 ];
