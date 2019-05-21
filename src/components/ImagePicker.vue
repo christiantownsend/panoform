@@ -1,12 +1,7 @@
 <template>
   <form>
+    <input id="filepicker" type="file" accept="image/*" v-on:change="handleFileSelect">
     <label for="filepicker">Choose an image</label>
-    <input
-      id="filepicker"
-      type="file"
-      accept="image/*"
-      v-on:change="handleFileSelect"
-    />
   </form>
 </template>
 
@@ -49,3 +44,43 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+#filepicker {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+#filepicker + label {
+  display: inline-block;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0;
+  text-decoration: none;
+  font-weight: 600;
+  background: #ee3933;
+  border-radius: 0.5rem;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+#filepicker:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+#filepicker:focus + label,
+#filepicker + label:hover {
+  background: darken(#ee3933, 10%);
+}
+</style>

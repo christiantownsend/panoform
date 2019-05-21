@@ -100,6 +100,7 @@ export default {
   },
   methods: {
     init() {
+      history.pushState(null, null, null);
       this.container = document.getElementById("viewer-container");
 
       // INITIALIZE SCENE
@@ -140,6 +141,12 @@ export default {
       window.addEventListener("fullscreenchange", () =>
         this.onFullscreenChange()
       );
+      window.addEventListener("popstate", e => {
+        if (this.$store.state.viewing) {
+          e.preventDefault();
+          this.$store.commit("setViewing", false);
+        }
+      });
 
       // ATTACH RENDERER TO CONTAINER
       this.container.appendChild(this.normalRenderer.domElement);

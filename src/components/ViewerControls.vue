@@ -30,7 +30,6 @@ export default {
     return {
       webVR: false,
       deviceOrientationVR: false,
-      image: require("@/assets/pic.png")
     };
   },
   computed: {
