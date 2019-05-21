@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/panoform-vue/precache-manifest.400124992ecdc4c48274ec409f6eb1de.js"
+  "/panoform-vue/precache-manifest.5ba8b66d90438dc00950523f89c9ad03.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "panoform-vue"});
