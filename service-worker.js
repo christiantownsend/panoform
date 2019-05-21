@@ -14,10 +14,10 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/panoform-vue/precache-manifest.5ba8b66d90438dc00950523f89c9ad03.js"
+  "/panoform/precache-manifest.ac92e16ad6d7c902fddf77c268691f3b.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "panoform-vue"});
+workbox.core.setCacheNameDetails({prefix: "panoform"});
 
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
