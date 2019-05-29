@@ -5,10 +5,7 @@
     <header>
       <div class="container flex">
         <div class="logo"><img src="./assets/logo.png" alt="Panoform Logo"></div>
-        <nav>
-          <a href="">Grids</a>
-          <a href="">About</a>
-        </nav>
+        <nav></nav>
       </div>
     </header>
 
@@ -17,7 +14,7 @@
       <ImagePicker/>
     </section>
 
-    <section>
+    <section v-if="recentImages.length != 0">
       <div class="flex">
         <h2>Recent Images</h2>
         <button class="button" v-on:click.prevent="clearDB">Clear</button>
@@ -25,6 +22,7 @@
 
       <main>
         <figure v-for="image in recentImages" v-bind:key="image.key">
+          <button v-on:click.prevent="removeImage(image.key)"></button>
           <img :src="image.data" v-on:click="setImage(image.data)">
         </figure>
       </main>
@@ -53,8 +51,10 @@ export default {
     },
     setImage(image) {
       this.$store.commit("setCurrentImage", image);
-      this.$store.dispatch("addRecentImage", image);
       this.$store.commit("setViewing", true);
+    },
+    removeImage(imageKey) {
+      this.$store.dispatch("removeRecentImage", imageKey);
     }
   }
 };
@@ -136,36 +136,61 @@ main figure {
   border-radius: 0.5em;
   -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
 
-main figure::after {
-  content: "";
-  border-radius: inherit;
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
+  &::after {
+    content: "";
+    border-radius: inherit;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
 
-main figure:hover {
-  transform: scale(1.025, 1.025);
-}
+  &:hover {
+    transform: scale(1.025, 1.025);
+  }
 
-main figure:hover::after {
-  opacity: 1;
-}
+  &:hover::after {
+    opacity: 1;
+  }
 
-main figure img {
-  border-radius: inherit;
-  display: block;
-  width: 100%;
-  height: 100%;
+  img {
+    // position: absolute;
+    border-radius: inherit;
+    top: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  button {
+    z-index: 1;
+    position: absolute;
+    display: inline-block;
+    border: none;
+    margin: 0;
+    text-decoration: none;
+    background: none;
+    cursor: pointer;
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-repeat: no-repeat;
+    background-position: center;
+
+    height: 3em;
+    width: 3em;
+    top: 1em;
+    right: 1em;
+    background-image: url("assets/close-icon.svg");
+  }
 }
 
 .flex {

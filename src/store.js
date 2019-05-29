@@ -31,6 +31,9 @@ let store = new Vuex.Store({
     addRecentImage(state, image) {
       state.recentImages.unshift(image);
     },
+    removeRecentImage(state, key) {
+      state.recentImages = state.recentImages.filter(image => image.key != key);
+    },
     setCurrentImage(state, image) {
       state.viewer.currentImage = image;
     },
@@ -75,7 +78,6 @@ let store = new Vuex.Store({
       };
 
       request.onsuccess = () => {
-        console.log(request.result.reverse());
         commit("setRecentImages", request.result);
       };
     },
@@ -97,8 +99,23 @@ let store = new Vuex.Store({
         console.log("Error adding image");
       };
 
-      request.onsuccess = () => {
+      request.onsuccess = (e) => {
+        image.key = e.target.result;
         commit("addRecentImage", image);
+      };
+    },
+    removeRecentImage({ commit }, key) {
+      let objStore = db
+        .transaction(["images"], "readwrite")
+        .objectStore("images");
+      let request = objStore.delete(key);
+
+      request.onerror = () => {
+        console.log("Error removing image");
+      };
+
+      request.onsuccess = () => {
+        commit("removeRecentImage", key);
       };
     }
   }
