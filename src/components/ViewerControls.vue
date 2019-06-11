@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       webVR: false,
-      deviceOrientationVR: false,
+      deviceOrientationVR: false
     };
   },
   computed: {
@@ -38,7 +38,7 @@ export default {
     },
     isWebVR() {
       return this.$store.state.viewer.webVR;
-    },
+    }
   },
   methods: {
     init() {
@@ -75,7 +75,7 @@ export default {
 
       if (screen.orientation != null) {
         if (newVal) {
-          screen.orientation.lock("landscape-primary").catch(e => {
+          screen.orientation.lock("landscape-primary").catch(() => {
             console.log("Orientation lock not supported on device");
           });
         } else {

@@ -1,29 +1,33 @@
 <template>
   <div id="app">
-    <Viewer v-if="this.$store.state.viewing"/>
+    <Viewer v-if="this.$store.state.viewing" />
 
     <header>
       <div class="container flex">
-        <div class="logo"><img src="./assets/logo.png" alt="Panoform Logo"></div>
+        <div class="logo">
+          <img src="./assets/logo.png" alt="Panoform Logo" />
+        </div>
         <nav></nav>
       </div>
     </header>
 
     <section>
       <h2>Upload an Image</h2>
-      <ImagePicker/>
+      <p>Note: If you're on iOS, please enable <strong>Settings > Safari > Motion & Orientation Access</strong> in order to view your image in VR mode</p>
+      <ImagePicker />
     </section>
 
-    <section v-if="recentImages.length != 0">
+    <section>
       <div class="flex">
         <h2>Recent Images</h2>
-        <button class="button" v-on:click.prevent="clearDB">Clear</button>
+        <button v-if="recentImages.length != 0" class="button" v-on:click.prevent="clearDB">Clear</button>
       </div>
 
       <main>
+        <p v-if="recentImages.length == 0">No images have been stored</p>
         <figure v-for="image in recentImages" v-bind:key="image.key">
           <button v-on:click.prevent="removeImage(image.key)"></button>
-          <img :src="image.data" v-on:click="setImage(image.data)">
+          <img :src="image.data" v-on:click="setImage(image.data)" />
         </figure>
       </main>
     </section>
@@ -61,12 +65,15 @@ export default {
 </script>
 
 <style lang="scss">
-* {
+*,
+*::after,
+*::before {
   box-sizing: border-box;
 }
 
 html {
   font-size: 16px;
+  background-color: #fafafa;
 }
 
 body {
@@ -80,15 +87,15 @@ section {
   width: 90%;
   max-width: 1000px;
   margin: 0 auto;
-  margin-bottom: 3rem;
 }
 
 header {
   width: 100%;
   padding: 1em 0;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0.1);
-  margin-bottom: 4rem;
-  
+  // box-shadow: 0 3px 6px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0.1);
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+
   .container {
     margin: 0 auto;
     width: 90%;
@@ -115,8 +122,25 @@ header {
   }
 }
 
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  margin-bottom: 2rem;
+}
+
+section, header {
+  margin-bottom: 4rem;
+}
+
 h2 {
   color: #222;
+}
+
+p {
+  color: #666;
+
+  strong {
+    color: #222;
+  }
 }
 
 main {

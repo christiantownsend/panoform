@@ -1,4 +1,4 @@
-# panoform-vue
+# Panoform
 
 ## Project setup
 ```

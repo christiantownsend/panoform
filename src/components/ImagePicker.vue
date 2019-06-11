@@ -1,6 +1,11 @@
 <template>
   <form>
-    <input id="filepicker" type="file" accept="image/*" v-on:change="handleFileSelect">
+    <input
+      id="filepicker"
+      type="file"
+      accept="image/*"
+      v-on:change="handleFileSelect"
+    />
     <label for="filepicker">Choose an image</label>
   </form>
 </template>
@@ -75,8 +80,8 @@ export default {
 }
 
 #filepicker:focus + label {
-	outline: 1px dotted #000;
-	outline: -webkit-focus-ring-color auto 5px;
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
 }
 
 #filepicker:focus + label,

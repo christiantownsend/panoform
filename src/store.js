@@ -99,7 +99,7 @@ let store = new Vuex.Store({
         console.log("Error adding image");
       };
 
-      request.onsuccess = (e) => {
+      request.onsuccess = e => {
         image.key = e.target.result;
         commit("addRecentImage", image);
       };
