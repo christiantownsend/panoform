@@ -14,10 +14,12 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.1aa16ea63be165f8d78ea5392ae64485.js"
+  "/precache-manifest.e77fa86fce9b75d64976e6163be93539.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "panoform"});
+
+workbox.skipWaiting();
 
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
