@@ -13,7 +13,7 @@
 
     <section>
       <h2>Upload an Image</h2>
-      <p>Note: If you're on iOS, please enable <strong>Settings > Safari > Motion & Orientation Access</strong> in order to view your image in VR mode</p>
+      <p>Note: If you're on iOS, please enable <strong>Settings > Safari > Motion & Orientation Access</strong> to allow you to view your image in VR mode</p>
       <ImagePicker />
     </section>
 
