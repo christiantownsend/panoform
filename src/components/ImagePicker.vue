@@ -6,7 +6,7 @@
       accept="image/*"
       v-on:change="handleFileSelect"
     />
-    <label for="filepicker">Choose an image</label>
+    <label for="filepicker" class="button">Choose an image</label>
   </form>
 </template>
 
@@ -62,19 +62,20 @@ export default {
 
 #filepicker + label {
   display: inline-block;
-  border: none;
-  padding: 1rem 2rem;
-  margin: 0;
-  text-decoration: none;
-  font-weight: 600;
-  background: #ee3933;
-  border-radius: 0.5rem;
-  color: #ffffff;
-  font-family: sans-serif;
-  font-size: 1rem;
   cursor: pointer;
-  text-align: center;
-  transition: background 250ms ease-in-out, transform 150ms ease;
+//   border: none;
+//   padding: 1rem 2rem;
+//   margin: 0;
+//   text-decoration: none;
+//   font-weight: 600;
+//   background: #ee3933;
+//   border-radius: 0.5rem;
+//   color: #ffffff;
+//   font-family: sans-serif;
+//   font-size: 1rem;
+//   cursor: pointer;
+//   text-align: center;
+//   transition: background 250ms ease-in-out, transform 150ms ease;
   -webkit-appearance: none;
   -moz-appearance: none;
 }
@@ -84,8 +85,8 @@ export default {
   outline: -webkit-focus-ring-color auto 5px;
 }
 
-#filepicker:focus + label,
-#filepicker + label:hover {
-  background: darken(#ee3933, 10%);
-}
+// #filepicker:focus + label,
+// #filepicker + label:hover {
+//   background: darken(#ee3933, 10%);
+// }
 </style>
