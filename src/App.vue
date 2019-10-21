@@ -12,8 +12,12 @@
     <section>
       <div class="container">
         <h2 class="section_header">Upload an Image</h2>
-        <p class="text-center">Note: If you're on iOS, please enable <strong>Settings > Safari > Motion & Orientation Access</strong> to allow you to view your image in VR mode</p>
-        <ImagePicker class="text-center"/>
+        <p class="text-center">
+          If your device is running iOS 12 or below, please enable
+          <strong>Settings > Safari > Motion & Orientation Access</strong> to enable VR
+        </p>
+        <p class="text-center">If your device is running iOS 13 or higher, just tap <a href="#" v-on:click.prevent="enableOrientation">here</a> to enable VR</p>
+        <ImagePicker class="text-center" />
       </div>
     </section>
 
@@ -21,7 +25,11 @@
       <div class="container">
         <div class="flex">
           <h2>Recent Images</h2>
-          <button v-if="recentImages.length != 0" class="button inline" v-on:click.prevent="clearDB">Clear</button>
+          <button
+            v-if="recentImages.length != 0"
+            class="button inline"
+            v-on:click.prevent="clearDB"
+          >Clear</button>
         </div>
 
         <!-- <main>
@@ -29,11 +37,11 @@
             <button v-on:click.prevent="removeImage(image.key)"></button>
             <img :src="image.data" v-on:click="setImage(image.data)" />
           </figure>
-        </main> -->
+        </main>-->
         <p v-if="recentImages.length == 0">No images have been stored</p>
         <div class="grid">
           <div class="grid_item card" v-for="image in recentImages" v-bind:key="image.key">
-            <img class="card_image" :src="image.data" v-on:click="setImage(image.data)" alt="">
+            <img class="card_image" :src="image.data" v-on:click="setImage(image.data)" alt />
             <div class="card_body flex around">
               <button v-on:click.prevent="setImage(image.data)" class="button inline">View</button>
               <button v-on:click.prevent="removeImage(image.key)" class="button inline">Delete</button>
@@ -70,263 +78,130 @@ export default {
     },
     removeImage(imageKey) {
       this.$store.dispatch("removeRecentImage", imageKey);
+    },
+    enableOrientation() {
+      if (typeof DeviceOrientationEvent.requestPermission === "function") {
+        DeviceOrientationEvent.requestPermission()
+          .then(permissionState => {
+            if (permissionState === "granted") {
+              console.log('Orientation Permission Granted')
+            }
+          })
+          .catch(console.error);
+      } else {
+        console.log("Non-iOS Device")
+      }
     }
   }
 };
 </script>
 
 <style lang="scss">
-// *,
-// *::after,
-// *::before {
-//   box-sizing: border-box;
-// }
 
-// html {
-//   font-size: 16px;
-//   background-color: #fafafa;
-// }
-
-// body {
-//   margin: 0;
-//   padding: 0;
-//   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-//     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-// }
-
-// section {
-//   width: 90%;
-//   max-width: 1000px;
-//   margin: 0 auto;
-// }
-
-// header {
-//   width: 100%;
-//   padding: 1em 0;
-//   // box-shadow: 0 3px 6px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0.1);
-//   background-color: #fff;
-//   border-bottom: 1px solid #eee;
-
-//   .container {
-//     margin: 0 auto;
-//     width: 90%;
-//     max-width: 1000px;
-//   }
-
-//   .logo {
-//     max-width: 300px;
-
-//     img {
-//       width: 100%;
-//     }
-//   }
-
-//   nav {
-//     display: flex;
-
-//     a {
-//       margin-left: 1em;
-//       text-decoration: none;
-//       color: black;
-//       font-weight: 600;
-//     }
-//   }
-// }
-
-// h1, h2, h3, h4, h5, h6, p {
-//   margin: 0;
-//   margin-bottom: 2rem;
-// }
-
-// section, header {
-//   margin-bottom: 4rem;
-// }
-
-// h2 {
-//   color: #222;
-// }
-
-// p {
-//   color: #666;
-
-//   strong {
-//     color: #222;
-//   }
-// }
-
-// main {
-//   display: grid;
-//   grid-gap: 2em;
-//   grid-auto-flow: row;
-//   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-//   grid-template-rows: repeat(auto-fill, minmax(150px, 1fr));
-// }
-
-// main figure {
-//   margin: 0;
-//   cursor: pointer;
-//   position: relative;
-//   display: block;
-//   width: 100%;
-//   border-radius: 0.5em;
-//   -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-//   transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-
-//   &::after {
-//     content: "";
-//     border-radius: inherit;
-//     position: absolute;
-//     z-index: -1;
-//     top: 0;
-//     left: 0;
-//     width: 100%;
-//     height: 100%;
-//     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-//     opacity: 0;
-//     -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-//     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-//   }
-
-//   &:hover {
-//     transform: scale(1.025, 1.025);
-//   }
-
-//   &:hover::after {
-//     opacity: 1;
-//   }
-
-//   img {
-//     // position: absolute;
-//     border-radius: inherit;
-//     top: 0;
-//     display: block;
-//     width: 100%;
-//     height: 100%;
-//   }
-
-//   button {
-//     z-index: 1;
-//     position: absolute;
-//     display: inline-block;
-//     border: none;
-//     margin: 0;
-//     text-decoration: none;
-//     background: none;
-//     cursor: pointer;
-//     text-align: center;
-//     -webkit-appearance: none;
-//     -moz-appearance: none;
-
-//     background-repeat: no-repeat;
-//     background-position: center;
-
-//     height: 3em;
-//     width: 3em;
-//     top: 1em;
-//     right: 1em;
-//     background-image: url("assets/close-icon.svg");
-//   }
-// }
-
-// .flex {
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-// }
-
-// .button {
-//   display: inline-block;
-//   border: none;
-//   padding: 0;
-//   margin: 0;
-//   text-decoration: none;
-//   background: none;
-//   font-weight: 600;
-//   color: #ee3933;
-//   font-family: sans-serif;
-//   font-size: 1rem;
-//   cursor: pointer;
-//   text-align: center;
-//   transition: background 250ms ease-in-out, transform 150ms ease;
-//   -webkit-appearance: none;
-//   -moz-appearance: none;
-
-//   &:hover,
-//   &:focus {
-//     color: darken(#ee3933, 10%);
-//   }
-// }
-
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:600&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:600&display=swap");
 
 /* BASE */
 
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-    height: 100%;
+  height: 100%;
 
-    font: 1em/1.5 "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    background-color: #fafafa;
+  font: 1em/1.5 "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  background-color: #fafafa;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-weight: 600;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  font-weight: 600;
 }
 
 body {
-    margin: 0;
-    min-height: 100%;
+  margin: 0;
+  min-height: 100%;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-h1,h2,h3,h4,h5,h6,hgroup,
-ul,ol,dd,
-p,figure,
-pre,table,fieldset,hr,
-.header, .button{
-    margin: 0  0 1.5rem 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hgroup,
+ul,
+ol,
+dd,
+p,
+figure,
+pre,
+table,
+fieldset,
+hr,
+.header,
+.button {
+  margin: 0 0 1.5rem 0;
 }
 
 li {
-    margin-bottom: .75rem
+  margin-bottom: 0.75rem;
 }
 
-h1, h2, h3, h4, h5, h6, hgroup {
-    color: #224;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hgroup {
+  color: #224;
 }
 
-ul, ol, dd, p, figure, pre, table, fieldset, hr {
-    color: #556;
+ul,
+ol,
+dd,
+p,
+figure,
+pre,
+table,
+fieldset,
+hr {
+  color: #556;
 }
 
 a {
-    color: #f42766;
+  color: #f42766;
 }
 
 .button {
   font-size: 1rem;
   cursor: pointer;
   text-decoration: none;
-  padding: .75rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   color: white;
   background-color: #f42766;
-  border-radius: .3rem;
-  transition: all .1s ease-in-out;
+  border-radius: 0.3rem;
+  transition: all 0.1s ease-in-out;
 }
 
 .button.outline {
-    background-color: transparent;
-    border: 1px solid;
+  background-color: transparent;
+  border: 1px solid;
 }
 
 .button.inline {
@@ -340,32 +215,32 @@ a {
 }
 
 .button.outline:hover {
-    background-color: white;
-    color: #f42766;
+  background-color: white;
+  color: #f42766;
 }
 
 .container {
-    width: 90%;
-    max-width: 1000px;
-    margin: 0 auto;
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .island {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: .3rem;
-    padding: 1.5rem;
-    position: relative;
-    transition: transform 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
-    display: flex;
-    flex-direction: column;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 0.3rem;
+  padding: 1.5rem;
+  position: relative;
+  transition: transform 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: flex;
+  flex-direction: column;
 }
 
 .card {
   background-color: white;
   border: 1px solid #ddd;
-  border-radius: .3rem;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
+  border-radius: 0.3rem;
   // padding: 1.5rem;
   position: relative;
   transition: transform 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -385,108 +260,112 @@ a {
   padding-bottom: 0;
 }
 
-.island::after, .card::after {
-    content: "";
-    border-radius: inherit;
-    position: absolute;
-    pointer-events: none;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    box-shadow: 0 .5em 10px rgba(0, 0, 0, 0.15);
-    opacity: 0;
-    transition: opacity 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+.island::after,
+.card::after {
+  content: "";
+  border-radius: inherit;
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0.5em 10px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transition: opacity 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.island:hover, .card:hover {
-    transform: translateY(-.5em);
+.island:hover,
+.card:hover {
+  transform: translateY(-0.5em);
 }
 
-.island:hover::after, .card:hover::after {
-    opacity: 1;
+.island:hover::after,
+.card:hover::after {
+  opacity: 1;
 }
 
 .island_image {
-    height: 4.5rem;
-    width: auto;
-    margin: 1.5rem 0;
+  height: 4.5rem;
+  width: auto;
+  margin: 1.5rem 0;
 }
 
 .island_image.landscape {
-    height: auto;
-    width: 100%;
+  height: auto;
+  width: 100%;
 }
 
 .flipper {
-    transform-style: preserve-3d;
-    transform: perspective(1000px);
-    position: relative;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  position: relative;
 }
 
-.flipper .front, .flipper .back {
-    border-radius: .3rem;
-    backface-visibility: hidden;
-    transition: transform 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+.flipper .front,
+.flipper .back {
+  border-radius: 0.3rem;
+  backface-visibility: hidden;
+  transition: transform 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.flipper:hover .front{
-    transform: rotateY(180deg);
+.flipper:hover .front {
+  transform: rotateY(180deg);
 }
 
 .flipper:hover .back {
-    transform: rotateY(360deg);
+  transform: rotateY(360deg);
 }
 
 .flipper .back {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #224;
-    transform: rotateY(180deg) translateZ(2px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    padding: 1.5rem;
-    text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #224;
+  transform: rotateY(180deg) translateZ(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
 }
 
 .media {
-    display: grid;
-    grid-gap: 1.5rem;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    margin-bottom: 3rem;
+  display: grid;
+  grid-gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  margin-bottom: 3rem;
 }
 
 .media_image {
-    width: 200px;
+  width: 200px;
 }
 
 .media_text {
-    grid-column: span 3;
+  grid-column: span 3;
 }
 
 .grid {
-    display: grid;
-    grid-gap: 1.5rem;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: grid;
+  grid-gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
 .grid.three {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
 .grid_item {
-    align-self: start;
+  align-self: start;
 }
 
 .flex {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .flex.around {
@@ -494,124 +373,125 @@ a {
 }
 
 .flex_item {
-    flex-basis: 0;
-    flex-grow: 1;
-    min-width: 200px;
-    padding-right: 1.5rem;
+  flex-basis: 0;
+  flex-grow: 1;
+  min-width: 200px;
+  padding-right: 1.5rem;
 }
 
-.flex_item img, .grid_item img {
-    display: block;
-    width: 100%;
+.flex_item img,
+.grid_item img {
+  display: block;
+  width: 100%;
 }
 
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 
 section {
-    padding: 6rem 0;
+  padding: 6rem 0;
 }
 
 section.gray {
-    background-color: #f3f3f3;
+  background-color: #f3f3f3;
 }
 
 .section_header {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 4.5rem;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 4.5rem;
 }
 
 /* HEADER */
 
 .header {
-    background-color: rgba(255, 255, 255, .8);
-    border-bottom: 1px solid #ddd;
-    width: 100%;
-    // position: fixed;
-    z-index: 1;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid #ddd;
+  width: 100%;
+  // position: fixed;
+  z-index: 1;
 }
 
 .header_container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .header_logo {
-    height: 1.5rem;
-    margin: 1.5rem 1.5rem 0 0;
-    margin-bottom: 0;
+  height: 1.5rem;
+  margin: 1.5rem 1.5rem 0 0;
+  margin-bottom: 0;
 }
 
 .header_nav {
-    margin: 1.5rem 0;
+  margin: 1.5rem 0;
 }
 
 .header_nav > .nav_item {
-    text-decoration: none;
-    margin: 0 0 0 1.5rem;
-    color: inherit;
-    white-space: nowrap;
+  text-decoration: none;
+  margin: 0 0 0 1.5rem;
+  color: inherit;
+  white-space: nowrap;
 }
 
 .header_nav > .nav_item:first-child {
-    margin-left: 0;
+  margin-left: 0;
 }
 
 .header_nav > .nav_item-emphasis {
-    text-decoration: none;
-    font-weight: 700;
-    color: #f42766;
+  text-decoration: none;
+  font-weight: 700;
+  color: #f42766;
 }
 
 /* FOOTER */
 
 footer {
-    margin-top: auto;
-    color: #889;
-    padding: 1.5rem 0;
+  margin-top: auto;
+  color: #889;
+  padding: 1.5rem 0;
 }
 
 .footer_container {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .footer_nav > .nav_item {
-    margin: 0 0 0 1.5rem;
-    white-space: nowrap;
+  margin: 0 0 0 1.5rem;
+  white-space: nowrap;
 }
 
 /* HERO */
 
 .hero {
-    height: 100vh;
-    padding: 3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  height: 100vh;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    color: white;
+  color: white;
 
-    /* background-color: rgba(0, 0, 0, .2); */
+  /* background-color: rgba(0, 0, 0, .2); */
 
-    // background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../images/photos/model.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+  // background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../images/photos/model.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .hero_title {
-    font-size: 3.5rem;
-    color: white;
+  font-size: 3.5rem;
+  color: white;
 }
 
 .hero .button {
-    border-color: white;
+  border-color: white;
 }
 </style>
 
