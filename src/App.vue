@@ -16,7 +16,7 @@
           If your device is running iOS 12 or below, please enable
           <strong>Settings > Safari > Motion & Orientation Access</strong> to enable VR
         </p>
-        <p class="text-center">If your device is running iOS 13 or higher, just tap <a href="#" v-on:click.prevent="enableOrientation">here</a> to enable VR</p>
+        <p class="text-center">If your device is running iOS 13 or higher, just tap <button class="button inline" v-on:click.prevent="enableOrientation()">here</button> to enable VR</p>
         <ImagePicker class="text-center" />
       </div>
     </section>
